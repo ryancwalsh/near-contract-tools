@@ -11,6 +11,14 @@ Helpful functions and macros for developing smart contracts on NEAR Protocol.
 repository = "https://github.com/encody/near-contract-tools"
 documentation = "https://docs.rs/near-contract-tools"
 
+[dev-dependencies]
+anyhow = "1.0.59"
+env_logger = "0.9.0"
+near-units = "0.2.0"
+test-log = "0.2.11"
+tokio = "1.20.1"
+workspaces = "0.4.0"
+
 [dependencies]
 near-sdk = "4"
 serde = "1"
@@ -22,3 +30,13 @@ members = [
     ".",
     "macros",
 ]
+
+[profile.release]
+codegen-units = 1
+# Tell `rustc` to optimize for small code size. https://www.near-sdk.io/building/basic-build
+opt-level = "z"
+lto = true
+debug = false
+panic = "abort"
+# Opt into extra safety checks on arithmetic operations https://stackoverflow.com/a/64136471/249801
+overflow-checks = true
